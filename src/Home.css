@@ -51,7 +51,7 @@
     position: absolute; left: 350px; top: 70px;
   }
   
-  .start{
+  #start{
     background-color: #000000;
     border: 0px;
     position: absolute; left: 600px; bottom: 65px;
@@ -73,4 +73,31 @@
     height: 15px;
     width: auto;
     position: absolute; top:19px; right: 20px;
+  }
+
+  .login-field{
+    background-color: #000000;
+    display: none;
+    border: 0px;
+    position: absolute; left: 600px; bottom: 65px;
+    height: 56px;
+    width: 200px;
+  }
+
+  .login{
+    border: 0px;
+    height: 40px;
+    width: 180px;
+    background-color: #000000;
+    color: #F5F4A7;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .play{
+    background-color: #000000;
+    border: 0px;
+    position: absolute; left: 600px; bottom: 65px;
+    height: 56px;
+    width: 200px;
   }
