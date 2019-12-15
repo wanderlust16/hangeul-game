@@ -94,10 +94,70 @@
     font-weight: bold;
   }
 
-  .play{
+  #play{
     background-color: #000000;
     border: 0px;
     position: absolute; left: 600px; bottom: 65px;
     height: 56px;
     width: 200px;
+  }
+  
+  .button-text2{
+    height: 45px;
+    width: 150px;
+    position: absolute; top: 10px;
+    color: #F5F4A7;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+    font-size: 28px;
+  }
+
+  .button-text3{
+    height: 45px;
+    width: 150px;
+    position: absolute; top: 12px; left: 5px;
+    color: #F5F4A7;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+    font-size: 26px;
+  }
+
+  .enter-room{
+    background-color: #000000;
+    display: none;
+    border: 0px;
+    position: absolute; left: 300px; bottom: 65px;
+    height: 56px;
+    width: 340px;
+  }
+
+  .new-room{
+    background-color: #000000;
+    display: none;
+    border: 0px;
+    position: absolute; left: 750px; bottom: 65px;
+    height: 56px;
+    width: 350px;
+  }
+
+  .enter{
+    border: 0px;
+    height: 40px;
+    width: 150px;
+    position: absolute; right: 55px; top: 7.8px;
+    background-color: #000000;
+    color: #F5F4A7;
+    font-size: 26px;
+    font-weight: bold;
+  }
+
+  .new{
+    border: 0px;
+    height: 40px;
+    width: 150px;
+    position: absolute; right: 50px; top: 7.8px;
+    background-color: #000000;
+    color: #F5F4A7;
+    font-size: 26px;
+    font-weight: bold;
   }

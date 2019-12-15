@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import sejong from './Sejong.png';
 import logo from './MainLogo.png';
@@ -11,6 +11,7 @@ import { firestore } from "./Firebase";
 
 export default function Home() {
     const [name, setName] = useState(null);
+    const [code, setCode] = useState(null);
     const login = localStorage.getItem('uid') ? 1:0;
     const onStart = (e) => {
         e.preventDefault();
@@ -19,6 +20,9 @@ export default function Home() {
     };
     const onPlay = (e) => {
         e.preventDefault();
+        document.getElementById('play').style.display = "none";
+        document.getElementsByClassName('enter-room')[0].style.display = "block";
+        document.getElementsByClassName('new-room')[0].style.display = "block";
     }
     const onLogin = (e) => {
         e.preventDefault();
@@ -35,6 +39,19 @@ export default function Home() {
                         })
                     })
             })
+    }
+    const onEnter = (e) => {
+        e.preventDefault();
+        if (!code) {
+            return alert('암호를 입력하세요.');
+        }
+        firestore.collection('rooms').doc(code).set(
+            { users: [{user: localStorage.getItem('userName')}]},
+            { merge: true }
+        );
+    }
+    const onNew = (e) => {
+        e.preventDefault();
     }
     return (
         <div className="background">  
@@ -62,7 +79,7 @@ export default function Home() {
                 {login === 0 &&
                     <button id="start" alt="시작" onClick={onStart}>
                         <div className="button-text">
-                            놀이 시작
+                            동전 넣기
                         </div>
                         <img src={arrow} className="arrow" alt="화살표"/>
                     </button>
@@ -76,12 +93,31 @@ export default function Home() {
                 </button>
                 }
                 {login > 0 &&
-                    <button className="play" alt="시작" onClick={onPlay}>
-                        <div className="button-text">
-                            동전 넣기
+                    <button id="play" onClick={onPlay}>
+                        <div className="button-text2">
+                            방 들어가기
                         </div>
                         <img src={arrow} className="arrow" alt="화살표"/>
                     </button>
+                }
+                {login > 0 &&
+                    <div>
+                        <button className="enter-room">
+                            <div className="button-text3">기존 방</div>
+                            <form onSubmit={onEnter}>
+                                <input type="text" name="code" placeholder="암호.." onChange={(e) => setCode(e.target.value)} className="enter"/>
+                                <input type="image" src={arrow} alt="들어가기" className="arrow"/>
+                            </form>
+                        </button>
+                        <button className="new-room">
+                            <div className="button-text3">새로운 방</div>
+                            <form onSubmit={onNew}>
+                                <input type="text" name="code" placeholder="암호.." onChange={(e) => setCode(e.target.value)} className="new"/>
+                                <input type="image" src={arrow} alt="들어가기" className="arrow"/>
+                            </form>
+                            <img src={arrow} className="arrow" alt="만들기"/>
+                        </button>
+                    </div>
                 }
             </div>
             </div>
