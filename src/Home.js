@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from 'react-router-dom';
-import Rank from './Rank';
+import { Link } from 'react-router-dom';
 import sejong from './Sejong.png';
 import logo from './MainLogo.png';
 import bottom from './Bottom.png';
@@ -16,7 +10,6 @@ import './Home.css';
 export default function Home() {
   return (
     <div className="background">  
-      <Router>
         <div>
           <div className ="rank">
             <Link exact to="/Rank">
@@ -44,13 +37,7 @@ export default function Home() {
               <img src={arrow} className="arrow" alt="화살표"/>
             </button>
           </div>
-          <Switch>
-            <Route exact path="/Rank" component={Rank}>
-              {/* <Rank /> */}
-            </Route>
-          </Switch>
         </div>
-      </Router>
     </div>
   );
 }

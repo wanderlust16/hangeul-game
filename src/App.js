@@ -9,12 +9,8 @@ export default function App() {
     <div className="background">  
       <Router>
         <div>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/Rank">
-            <Rank />
-          </Route>
+          <Route exact path="/" component={Home}/>
+          <Route path="/Rank" component={Rank}/>
         </div>
       </Router>
     </div>
