@@ -32,11 +32,29 @@ export default function Home() {
       response.channel.item ? console.log("PASS") : console.log("WRONG")
     })
   }
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   var title = this.title;
-  //   console.log(title);
-  // }
+
+  const randomChosung = (n) => {
+    let consonantList = ["ㄱ", "ㄴ","ㄷ","ㄹ","ㅁ","ㅂ", "ㅅ", "ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    const shuffleConsonants = shuffle(consonantList);
+    console.log(shuffleConsonants);
+    // const rdm = Math.floor(Math.random() * shuffleConsonants.length)
+    const consonants = shuffleConsonants.slice(0, 2)
+    console.log(consonants)
+    document.getElementById('consonant').innerHTML = consonants.join("")
+  }
+
+  const shuffle = (a) => {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  useEffect(() => {
+    console.log("set new chosung")
+    randomChosung(2)  
+  }, [])
 
   return (
     <div className="background">  
@@ -46,6 +64,7 @@ export default function Home() {
               <img src = {sejong} className="sejong" alt="명예의 전당"/>
             </Link>
           </div>
+          <span id="consonant" style={{ border: "2px solid white", width: "500px", backgroundColor: "white" }}>ㅎㅁㅈㅇ</span> 
           <form onSubmit={checkWord}>
             <label style={{ color: "white" }}> 단어를 입력하세요: </label> 
               <input type="text" name="name" onChange={(e) => {setWord(e.target.value)}}/>
