@@ -25,6 +25,7 @@ export default function Home() {
 
   const checkWord = (e) => {
     e.preventDefault(); 
+    document.getElementById("wordBox").value = ""
     let inputConsonant = checkChosung(word);
     let consonant = document.getElementById('consonant').innerHTML
     if (inputConsonant === consonant) { // 자음이 일치하면, 사전등록단어인지 체크
@@ -41,11 +42,25 @@ export default function Home() {
       })
       .then(response => {
         // console.log(response.channel.item)
-        response.channel.item ? console.log("PASS") : console.log("WRONG")
-        // console.log(response);
-        // console.log(response.channel.item[0].sense.definition._text)
+        if (response.channel.item) { // 사전 등재 단어라면
+          console.log("PASS") // PASS
+          if ((response.channel.item).length > 1) {
+            if ((response.channel.item[0].sense).length > 1) {
+              console.log(response.channel.item[0].sense[0].definition._text)
+            }
+            else {
+              console.log(response.channel.item[0].sense.definition._text)
+            }
+          } else if ((response.channel.item).length === 1) {
+              console.log(response.channel.item.sense.definition._text)
+          } else {
+              console.log("오, 이런 어려운 단어도 알다니! 아주 칭찬해~")
+          }
+        } else { // 사전 등재 단어가 아니라면
+          console.log("WRONG")
+        }
       })
-    } else {
+    } else { // 자음이 일치하지 않는다면
       console.log("자음 불일치!") 
     }
   }
@@ -97,7 +112,7 @@ export default function Home() {
           <span id="timer" style={{ border: "2px solid white", width: "500px", backgroundColor: "white" }}></span>
           <form onSubmit={checkWord}>
             <label style={{ color: "white" }}> 단어를 입력하세요: </label> 
-              <input type="text" name="name" onChange={(e) => {setWord(e.target.value)}}/>
+              <input type="text" id="wordBox" onChange={(e) => {setWord(e.target.value)}} />
               <input type="submit" value="Submit" />
           </form>
           <div>
