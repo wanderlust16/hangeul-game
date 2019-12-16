@@ -17,20 +17,27 @@ export default function Home() {
 
   const checkWord = (e) => {
     e.preventDefault(); 
-    console.log(word)
-    axios.get('https://cors-anywhere.herokuapp.com/' + `https://krdict.korean.go.kr/api/search?certkey_no=1154&key=80BDA3A34160D126F3FB4094CBE073EF&type_search=search&method=WORD_INFO&part=word&q=${word}&sort=dict`, {
-      // function body 
-    })
-    .then(response => {
-      // console.log(response.data)
-      const result = convert.xml2json(response.data, {compact: true, spaces: 4}); // compact: bool
-      return JSON.parse(result)
-      // console.log(JSON.parse(result));
-    })
-    .then(response => {
-      // console.log(response.channel.item)
-      response.channel.item ? console.log("PASS") : console.log("WRONG")
-    })
+    let inputConsonant = checkChosung(word);
+    let consonant = document.getElementById('consonant').innerHTML
+    if (inputConsonant === consonant) { // 자음이 일치하면, 사전등록단어인지 체크
+      console.log("자음 일치!") 
+      axios.get('https://cors-anywhere.herokuapp.com/' + `https://krdict.korean.go.kr/api/search?certkey_no=1154&key=${APP_KEY}&type_search=search&method=WORD_INFO&part=word&q=${word}&sort=dict`, {
+        // function body 
+      })
+      .then(response => {
+        // console.log(response.data)
+        const result = convert.xml2json(response.data, {compact: true, spaces: 4}); // compact: bool
+        return JSON.parse(result)
+        // console.log(JSON.parse(result));
+
+      })
+      .then(response => {
+        // console.log(response.channel.item)
+        response.channel.item ? console.log("PASS") : console.log("WRONG")
+      })
+    } else {
+      console.log("자음 불일치!")
+    }
   }
 
   const randomChosung = (n) => {
@@ -38,9 +45,9 @@ export default function Home() {
     const shuffleConsonants = shuffle(consonantList);
     console.log(shuffleConsonants);
     // const rdm = Math.floor(Math.random() * shuffleConsonants.length)
-    const consonants = shuffleConsonants.slice(0, 2)
-    console.log(consonants)
-    document.getElementById('consonant').innerHTML = consonants.join("")
+    const consonants = shuffleConsonants.slice(0, n).join("")
+    // console.log(consonants)
+    document.getElementById('consonant').innerHTML = consonants
   }
 
   const shuffle = (a) => {
@@ -51,10 +58,21 @@ export default function Home() {
     return a;
   }
 
+  // useEffect 잘 모름
   useEffect(() => {
     console.log("set new chosung")
     randomChosung(2)  
   }, [])
+
+  const checkChosung = (str) => {
+    let cho = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    let result = "";
+    for(let i=0; i<str.length; i++) {
+      let code = str.charCodeAt(i)-44032;
+      if(code>-1 && code<11172) result += cho[Math.floor(code/588)];
+    }
+    return result;
+  }
 
   return (
     <div className="background">  
