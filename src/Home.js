@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import sejong from './Sejong.png';
 import logo from './MainLogo.png';
@@ -6,16 +6,43 @@ import bottom from './Bottom.png';
 import light from './Light.png';
 import arrow from './Arrow.png';
 import './Home.css';
+import axios from 'axios'
+
+let APP_KEY = "80BDA3A34160D126F3FB4094CBE073EF"
 
 export default function Home() {
+  const [word, setWord] = useState(null)
+
+  const checkWord = (e) => {
+    e.preventDefault(); 
+    console.log(word)
+    axios.get('https://cors-anywhere.herokuapp.com/' + `https://krdict.korean.go.kr/api/search?certkey_no=1154&key=80BDA3A34160D126F3FB4094CBE073EF&type_search=search&method=WORD_INFO&part=word&q=${word}=dict`, {
+      // function body 
+    })
+    .then(response => {
+      console.log(response.data)
+    })
+    .then()
+  }
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   var title = this.title;
+  //   console.log(title);
+  // }
+
   return (
     <div className="background">  
-        <div>
+        <div> 
           <div className ="rank">
             <Link exact to="/Rank">
               <img src = {sejong} className="sejong" alt="명예의 전당"/>
             </Link>
           </div>
+          <form onSubmit={checkWord}>
+            <label style={{ color: "white" }}> 단어를 입력하세요: </label> 
+              <input type="text" name="name" onChange={(e) => {setWord(e.target.value)}}/>
+              <input type="submit" value="Submit" />
+          </form>
           <div>
             <img src={logo} className="main-logo" alt="로고"/>
           </div>
