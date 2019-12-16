@@ -53,13 +53,30 @@
     position: absolute; left: 18%; top: 70px;
 }
 
-.send{
-  border: 0px;
-  height: 40px;
-  width: 180px;
-  background-color: #000000;
-  color: white;
-  font-size: 28px;
-  font-weight: bold;
-  position: absolute; left: 50%; transform: translateX(-50%); bottom: 50px;
+#consonant{
+    color: black;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute; left: 50%; transform: translateX(-50%); top: 220px;
+}
+
+#rest-time{
+    color: white;
+    position: absolute; right: 15%; top: 330px;
+}
+
+#timer{
+    color: white;
+    position: absolute; right: 13%; top: 330px;
+}
+
+#wordBox{
+    border: 0px;
+    height: 40px;
+    width: 180px;
+    background-color: #000000;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute; left: 50%; transform: translateX(-50%); bottom: 50px;
 }
