@@ -49,6 +49,7 @@ export default function Home() {
             { users: [{user: localStorage.getItem('userName')}]},
             { merge: true }
         );
+        localStorage.setItem('code', code);
     }
     const onNew = (e) => {
         e.preventDefault();
