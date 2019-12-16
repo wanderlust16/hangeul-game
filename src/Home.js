@@ -6,23 +6,31 @@ import bottom from './Bottom.png';
 import light from './Light.png';
 import arrow from './Arrow.png';
 import './Home.css';
-import axios from 'axios'
+import axios from 'axios' // npm install --save axios
+// npm install --save xml-js
 
 let APP_KEY = "80BDA3A34160D126F3FB4094CBE073EF"
 
 export default function Home() {
   const [word, setWord] = useState(null)
+  const convert = require('xml-js');
 
   const checkWord = (e) => {
     e.preventDefault(); 
     console.log(word)
-    axios.get('https://cors-anywhere.herokuapp.com/' + `https://krdict.korean.go.kr/api/search?certkey_no=1154&key=80BDA3A34160D126F3FB4094CBE073EF&type_search=search&method=WORD_INFO&part=word&q=${word}=dict`, {
+    axios.get('https://cors-anywhere.herokuapp.com/' + `https://krdict.korean.go.kr/api/search?certkey_no=1154&key=80BDA3A34160D126F3FB4094CBE073EF&type_search=search&method=WORD_INFO&part=word&q=${word}&sort=dict`, {
       // function body 
     })
     .then(response => {
-      console.log(response.data)
+      // console.log(response.data)
+      const result = convert.xml2json(response.data, {compact: true, spaces: 4}); // compact: bool
+      return JSON.parse(result)
+      // console.log(JSON.parse(result));
     })
-    .then()
+    .then(response => {
+      // console.log(response.channel.item)
+      response.channel.item ? console.log("PASS") : console.log("WRONG")
+    })
   }
   // const onSubmit = (e) => {
   //   e.preventDefault();
