@@ -15,6 +15,14 @@ export default function Home() {
   const [word, setWord] = useState(null)
   const convert = require('xml-js');
 
+  const timer = (sec) => {
+    let timer = document.getElementById("timer")
+    timer.innerHTML = sec
+    setInterval(() => {      
+      timer.innerHTML -= 1;
+    }, 1000)
+  }
+
   const checkWord = (e) => {
     e.preventDefault(); 
     let inputConsonant = checkChosung(word);
@@ -30,14 +38,15 @@ export default function Home() {
         const result = convert.xml2json(response.data, {compact: true, spaces: 4}); // compact: bool
         return JSON.parse(result)
         // console.log(JSON.parse(result));
-
       })
       .then(response => {
         // console.log(response.channel.item)
         response.channel.item ? console.log("PASS") : console.log("WRONG")
+        // console.log(response);
+        // console.log(response.channel.item[0].sense.definition._text)
       })
     } else {
-      console.log("자음 불일치!")
+      console.log("자음 불일치!") 
     }
   }
 
@@ -63,6 +72,7 @@ export default function Home() {
   useEffect(() => {
     console.log("set new chosung")
     randomChosung(2)  
+    timer(60)
   }, [])
 
   const checkChosung = (str) => {
@@ -83,7 +93,8 @@ export default function Home() {
               <img src = {sejong} className="sejong" alt="명예의 전당"/>
             </Link>
           </div>
-          <span id="consonant" style={{ border: "2px solid white", width: "500px", backgroundColor: "white" }}>ㅎㅁㅈㅇ</span> 
+          <span id="consonant" style={{ border: "2px solid white", width: "500px", backgroundColor: "white" }}></span> 
+          <span id="timer" style={{ border: "2px solid white", width: "500px", backgroundColor: "white" }}></span>
           <form onSubmit={checkWord}>
             <label style={{ color: "white" }}> 단어를 입력하세요: </label> 
               <input type="text" name="name" onChange={(e) => {setWord(e.target.value)}}/>
