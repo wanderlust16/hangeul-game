@@ -21,6 +21,7 @@ export default function Home() {
     let consonant = document.getElementById('consonant').innerHTML
     if (inputConsonant === consonant) { // 자음이 일치하면, 사전등록단어인지 체크
       console.log("자음 일치!") 
+      // CORS 해결 방법 변경
       axios.get('https://cors-anywhere.herokuapp.com/' + `https://krdict.korean.go.kr/api/search?certkey_no=1154&key=${APP_KEY}&type_search=search&method=WORD_INFO&part=word&q=${word}&sort=dict`, {
         // function body 
       })
@@ -41,7 +42,7 @@ export default function Home() {
   }
 
   const randomChosung = (n) => {
-    let consonantList = ["ㄱ", "ㄴ","ㄷ","ㄹ","ㅁ","ㅂ", "ㅅ", "ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    let consonantList = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ", "ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
     const shuffleConsonants = shuffle(consonantList);
     console.log(shuffleConsonants);
     // const rdm = Math.floor(Math.random() * shuffleConsonants.length)
